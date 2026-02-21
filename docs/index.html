@@ -7,50 +7,50 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- 主图区域 -->
-    <div id="main-viewer">
-        <img id="main-img" src="" alt="">
-        
-        <!-- 导航箭头 -->
-        <button id="prev-btn" class="nav-arrow prev">‹</button>
-        <button id="next-btn" class="nav-arrow next">›</button>
-        
-        <!-- 顶部标题栏 -->
-        <div id="top-bar">
-            <div class="logo">老爸摄影集</div>
-            <div class="style-switch">
-                <a href="gallery/">画廊版</a>
-            </div>
+    <!-- 左侧导航 -->
+    <div id="side-nav">
+        <div class="nav-header">
+            <h1>老爸摄影集</h1>
+            <p class="subtitle">记录生活的美好瞬间</p>
         </div>
         
-        <!-- 照片信息 -->
-        <div id="photo-info">
-            <h1 id="photo-title"></h1>
-            <div class="meta">
-                <span id="photo-location"></span>
-                <span id="photo-date"></span>
-            </div>
-        </div>
+        <nav class="nav-links">
+            <h3>作品</h3>
+            <a href="#" class="nav-link active" data-filter="all">全部</a>
+            <a href="#" class="nav-link" data-filter="中国大陆-天门市">天门</a>
+            <a href="#" class="nav-link" data-filter="中国大陆">国内</a>
+            <a href="#" class="nav-link" data-filter="加拿大">加拿大</a>
+            <a href="#" class="nav-link" data-filter="中国台湾">台湾</a>
+            <a href="#" class="nav-link" data-filter="其他">其他</a>
+            
+            <h3>浏览</h3>
+            <a href="gallery/">画廊版</a>
+            <a href="#" id="about-link">关于</a>
+        </nav>
         
-        <!-- 计数器 -->
-        <div id="counter">
+        <div class="nav-footer">
             <span id="current-num">1</span> / <span id="total-num">63</span>
         </div>
     </div>
     
-    <!-- 底部缩略图导航 -->
-    <div id="thumb-bar">
-        <div id="thumb-container"></div>
+    <!-- 主图区域 -->
+    <div id="main-viewer">
+        <img id="main-img" src="" alt="">
+        
+        <button id="prev-btn" class="nav-arrow prev">‹</button>
+        <button id="next-btn" class="nav-arrow next">›</button>
+        
+        <!-- 照片信息 -->
+        <div id="photo-info">
+            <h2 id="photo-title"></h2>
+            <p id="photo-location"></p>
+            <p id="photo-date"></p>
+        </div>
     </div>
     
-    <!-- 分类菜单 -->
-    <div id="filter-menu">
-        <button class="filter-btn active" data-filter="all">全部</button>
-        <button class="filter-btn" data-filter="中国大陆-天门市">天门</button>
-        <button class="filter-btn" data-filter="中国大陆">国内</button>
-        <button class="filter-btn" data-filter="加拿大">加拿大</button>
-        <button class="filter-btn" data-filter="中国台湾">台湾</button>
-        <button class="filter-btn" data-filter="其他">其他</button>
+    <!-- 底部缩略图 -->
+    <div id="thumb-bar">
+        <div id="thumb-container"></div>
     </div>
     
     <!-- 详情面板 -->
@@ -61,6 +61,18 @@
             <p id="panel-description"></p>
             <p id="panel-comment"></p>
             <div id="panel-exif"></div>
+        </div>
+    </div>
+    
+    <!-- 关于弹窗 -->
+    <div id="about-overlay" class="overlay hidden">
+        <div class="overlay-content">
+            <button id="close-about">×</button>
+            <h2>关于</h2>
+            <p>热爱摄影，用镜头记录生活的美好瞬间。</p>
+            <p>拍摄时间：2010-2025年</p>
+            <p>拍摄地点：天门、上海、北京、杭州、武汉、秦皇岛、新疆、台湾、加拿大、泰国、老挝等</p>
+            <p>主要器材：NIKON D90 / D800</p>
         </div>
     </div>
 

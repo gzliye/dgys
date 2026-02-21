@@ -80,7 +80,7 @@ class PhotoAlbum {
     encodePath(path) {
         const parts = path.split('/');
         const filename = parts.pop();
-        return parts.join('/') + '/' + encodeURIComponent(filename);
+        return '../' + parts.join('/') + '/' + encodeURIComponent(filename);
     }
 
     renderGallery() {

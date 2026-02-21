@@ -35,15 +35,19 @@ class PhotoAlbum {
             if (e.key === 'ArrowLeft') this.navigate(-1);
             if (e.key === 'ArrowRight') this.navigate(1);
             if (e.key === 'i' || e.key === 'I') this.toggleInfo();
-            if (e.key === 'Escape') this.closeInfo();
+            if (e.key === 'Escape') {
+                this.closeInfo();
+                this.closeAbout();
+            }
         });
 
-        // 分类筛选
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                this.filterPhotos(btn.dataset.filter);
+        // 左侧导航筛选
+        document.querySelectorAll('.nav-link[data-filter]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.nav-link[data-filter]').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                this.filterPhotos(link.dataset.filter);
             });
         });
 
@@ -52,6 +56,17 @@ class PhotoAlbum {
 
         // 点击主图显示详情
         document.getElementById('main-img').addEventListener('click', () => this.toggleInfo());
+        
+        // 关于弹窗
+        document.getElementById('about-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('about-overlay').classList.remove('hidden');
+        });
+        
+        document.getElementById('close-about').addEventListener('click', () => this.closeAbout());
+        document.getElementById('about-overlay').addEventListener('click', (e) => {
+            if (e.target.id === 'about-overlay') this.closeAbout();
+        });
     }
 
     filterPhotos(filter) {
@@ -92,10 +107,8 @@ class PhotoAlbum {
         const photo = this.filteredPhotos[index];
         const img = document.getElementById('main-img');
 
-        // 淡出
         img.classList.add('loading');
 
-        // 加载新图
         setTimeout(() => {
             img.src = this.encodePath(photo.sources.desktop);
             img.onload = () => {
@@ -103,32 +116,28 @@ class PhotoAlbum {
             };
         }, 150);
 
-        // 更新信息
         document.getElementById('photo-title').textContent = photo.title;
         document.getElementById('photo-location').textContent = photo.location || '';
         document.getElementById('photo-date').textContent = photo.date || '';
         document.getElementById('current-num').textContent = index + 1;
         document.getElementById('total-num').textContent = this.filteredPhotos.length;
 
-        // 更新详情面板
         document.getElementById('panel-title').textContent = photo.title;
         document.getElementById('panel-description').textContent = photo.description || '';
         document.getElementById('panel-comment').textContent = photo.comment || '';
         
         const exif = [];
-        if (photo.camera) exif.push(`📷 ${photo.camera}`);
-        if (photo.lens) exif.push(`🔭 ${photo.lens}`);
-        if (photo.focal) exif.push(`📏 ${photo.focal}mm`);
-        if (photo.aperture) exif.push(` aperture f/${photo.aperture}`);
-        if (photo.iso) exif.push(`ISO ${photo.iso}`);
-        document.getElementById('panel-exif').innerHTML = exif.map(e => `<div>${e}</div>`).join('');
+        if (photo.camera) exif.push('📷 ' + photo.camera);
+        if (photo.lens) exif.push('🔭 ' + photo.lens);
+        if (photo.focal) exif.push('📏 ' + photo.focal + 'mm');
+        if (photo.aperture) exif.push('f/' + photo.aperture);
+        if (photo.iso) exif.push('ISO ' + photo.iso);
+        document.getElementById('panel-exif').innerHTML = exif.map(e => '<div>' + e + '</div>').join('');
 
-        // 更新缩略图高亮
         document.querySelectorAll('.thumb-item').forEach((item, i) => {
             item.classList.toggle('active', i === index);
         });
 
-        // 滚动缩略图到可见区域
         const thumbItems = document.querySelectorAll('.thumb-item');
         if (thumbItems[index]) {
             thumbItems[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
@@ -143,12 +152,15 @@ class PhotoAlbum {
     }
 
     toggleInfo() {
-        const panel = document.getElementById('info-panel');
-        panel.classList.toggle('hidden');
+        document.getElementById('info-panel').classList.toggle('hidden');
     }
 
     closeInfo() {
         document.getElementById('info-panel').classList.add('hidden');
+    }
+    
+    closeAbout() {
+        document.getElementById('about-overlay').classList.add('hidden');
     }
 }
 
