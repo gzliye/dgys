@@ -87,6 +87,14 @@ class PhotoAlbum {
         this.showPhoto(0);
     }
 
+    encodeImagePath(path) {
+        // 分割路径，只编码文件名部分
+        const parts = path.split('/');
+        const filename = parts.pop();
+        const encodedFilename = encodeURIComponent(filename);
+        return parts.join('/') + '/' + encodedFilename;
+    }
+
     showPhoto(index) {
         if (this.filteredPhotos.length === 0) return;
         
@@ -97,30 +105,38 @@ class PhotoAlbum {
         img.classList.add('loading-fade');
         
         setTimeout(() => {
-            // 加载新图片
+            // 加载新图片 - 使用编码后的路径
             const source = photo.sources.desktop || photo.sources.mobile;
-            img.src = source;
+            img.src = this.encodeImagePath(source);
             
             img.onload = () => {
                 img.classList.remove('loading-fade');
                 img.classList.add('loaded');
             };
+            
+            img.onerror = () => {
+                console.error('图片加载失败:', source);
+                // 尝试加载 mobile 版本
+                if (photo.sources.mobile) {
+                    img.src = this.encodeImagePath(photo.sources.mobile);
+                }
+            };
         }, 200);
 
         // 更新信息
         document.getElementById('photo-title-main').textContent = photo.title;
-        document.getElementById('photo-location').textContent = photo.location ? `📍 ${photo.location}` : '';
-        document.getElementById('photo-date').textContent = photo.date ? `📅 ${photo.date}` : '';
+        document.getElementById('photo-location').textContent = photo.location ? '📍 ' + photo.location : '';
+        document.getElementById('photo-date').textContent = photo.date ? '📅 ' + photo.date : '';
         document.getElementById('photo-description').textContent = photo.description || '';
         document.getElementById('photo-comment').textContent = photo.comment || '';
 
         // 更新EXIF
         const exif = [];
-        if (photo.camera) exif.push(`📷 ${photo.camera}`);
-        if (photo.focal) exif.push(`📏 ${photo.focal}mm`);
-        if (photo.aperture) exif.push(`f/${photo.aperture}`);
-        if (photo.iso) exif.push(`ISO ${photo.iso}`);
-        document.getElementById('photo-exif').innerHTML = exif.map(e => `<span>${e}</span>`).join('');
+        if (photo.camera) exif.push('📷 ' + photo.camera);
+        if (photo.focal) exif.push('📏 ' + photo.focal + 'mm');
+        if (photo.aperture) exif.push('f/' + photo.aperture);
+        if (photo.iso) exif.push('ISO ' + photo.iso);
+        document.getElementById('photo-exif').innerHTML = exif.map(e => '<span>' + e + '</span>').join('');
     }
 
     navigatePhoto(direction) {
