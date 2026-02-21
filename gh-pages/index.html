@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老爸摄影集</title>
+    <meta name="description" content="记录生活的美好瞬间 - 老爸摄影作品集">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <h1>📷 老爸摄影集</h1>
+                <p class="subtitle">记录生活的美好瞬间</p>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" data-filter="all">全部</button>
+                <button class="nav-btn" data-filter="中国大陆-天门市">天门</button>
+                <button class="nav-btn" data-filter="中国大陆">国内</button>
+                <button class="nav-btn" data-filter="加拿大">加拿大</button>
+                <button class="nav-btn" data-filter="中国台湾">台湾</button>
+                <button class="nav-btn" data-filter="其他">其他</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="main">
+        <!-- 统计信息 -->
+        <section class="stats">
+            <div class="stat-item">
+                <span class="stat-number" id="total-photos">0</span>
+                <span class="stat-label">张照片</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="total-locations">0</span>
+                <span class="stat-label">个地点</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="year-range">-</span>
+                <span class="stat-label">年间</span>
+            </div>
+        </section>
+
+        <!-- 照片网格 -->
+        <section class="gallery" id="gallery">
+            <!-- 照片卡片将通过JS动态生成 -->
+        </section>
+
+        <!-- 加载提示 -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>加载中...</p>
+        </div>
+    </main>
+
+    <!-- 照片详情弹窗 -->
+    <div class="modal" id="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div class="modal-image-container">
+                <picture id="modal-picture">
+                    <!-- 动态生成 -->
+                </picture>
+                <button class="modal-nav modal-prev" id="modal-prev">‹</button>
+                <button class="modal-nav modal-next" id="modal-next">›</button>
+            </div>
+            <div class="modal-info">
+                <h2 class="modal-title" id="modal-title"></h2>
+                <div class="modal-meta">
+                    <span class="meta-item" id="modal-location">📍 </span>
+                    <span class="meta-item" id="modal-date">📅 </span>
+                    <span class="meta-item" id="modal-camera">📷 </span>
+                </div>
+                <div class="modal-description">
+                    <h3>📝 描述</h3>
+                    <p id="modal-description"></p>
+                </div>
+                <div class="modal-comment">
+                    <h3>💡 点评</h3>
+                    <p id="modal-comment"></p>
+                </div>
+                <div class="modal-exif">
+                    <h3>🔧 拍摄参数</h3>
+                    <div class="exif-grid" id="modal-exif"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2024 老爸摄影集 | 用心记录每一刻</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
