@@ -2,78 +2,65 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>老爸摄影集</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- 左侧导航 -->
-    <div id="menu">
-        <div class="title">
-            <p class="logo-text">老爸摄影集</p>
-            <p class="subtitle">记录生活的美好瞬间</p>
-        </div>
+    <!-- 主图区域 -->
+    <div id="main-viewer">
+        <img id="main-img" src="" alt="">
         
-        <div class="container">
-            <ul>
-                <li class="section-title">作品</li>
-                <li class="active"><a href="#" data-filter="all">全部</a></li>
-                <li><a href="#" data-filter="中国大陆-天门市">天门</a></li>
-                <li><a href="#" data-filter="中国大陆">国内</a></li>
-                <li><a href="#" data-filter="加拿大">加拿大</a></li>
-                <li><a href="#" data-filter="中国台湾">台湾</a></li>
-                <li><a href="#" data-filter="其他">其他</a></li>
-            </ul>
-            
-            <ul>
-                <li class="section-title">关于</li>
-                <li><a href="#info" id="about-link">摄影师</a></li>
-            </ul>
-            
+        <!-- 导航箭头 -->
+        <button id="prev-btn" class="nav-arrow prev">‹</button>
+        <button id="next-btn" class="nav-arrow next">›</button>
+        
+        <!-- 顶部标题栏 -->
+        <div id="top-bar">
+            <div class="logo">老爸摄影集</div>
             <div class="style-switch">
                 <a href="gallery/">画廊版</a>
             </div>
-            
-            <div class="stats-info">
-                <p><span id="current-num">1</span> / <span id="total-photos">63</span></p>
+        </div>
+        
+        <!-- 照片信息 -->
+        <div id="photo-info">
+            <h1 id="photo-title"></h1>
+            <div class="meta">
+                <span id="photo-location"></span>
+                <span id="photo-date"></span>
             </div>
         </div>
-    </div>
-
-    <!-- 右侧内容区 -->
-    <div id="content">
-        <div id="img-container">
-            <p class="nav">
-                <a id="prev" href="#">Prev</a> | 
-                <a id="next" href="#">Next</a>
-            </p>
-            
-            <div id="slideshow">
-                <div id="current-image">
-                    <img id="main-img" src="" alt="">
-                </div>
-            </div>
-            
-            <div id="photo-info">
-                <h2 id="photo-title-main"></h2>
-                <p id="photo-location"></p>
-                <p id="photo-date"></p>
-                <p id="photo-description"></p>
-                <p id="photo-comment" class="comment"></p>
-                <div id="photo-exif"></div>
-            </div>
+        
+        <!-- 计数器 -->
+        <div id="counter">
+            <span id="current-num">1</span> / <span id="total-num">63</span>
         </div>
     </div>
-
-    <!-- 关于信息 -->
-    <div id="info-overlay" class="overlay hidden">
-        <div class="overlay-content">
-            <a href="#" class="close-btn">&times;</a>
-            <h2>关于</h2>
-            <p>热爱摄影，用镜头记录生活的美好瞬间。</p>
-            <p>拍摄时间跨度：2010-2025年</p>
-            <p>拍摄地点：天门、上海、北京、杭州、武汉、秦皇岛、新疆、台湾、加拿大、泰国、老挝等</p>
-            <p>主要器材：NIKON D90 / D800</p>
+    
+    <!-- 底部缩略图导航 -->
+    <div id="thumb-bar">
+        <div id="thumb-container"></div>
+    </div>
+    
+    <!-- 分类菜单 -->
+    <div id="filter-menu">
+        <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="中国大陆-天门市">天门</button>
+        <button class="filter-btn" data-filter="中国大陆">国内</button>
+        <button class="filter-btn" data-filter="加拿大">加拿大</button>
+        <button class="filter-btn" data-filter="中国台湾">台湾</button>
+        <button class="filter-btn" data-filter="其他">其他</button>
+    </div>
+    
+    <!-- 详情面板 -->
+    <div id="info-panel" class="hidden">
+        <div class="panel-content">
+            <button id="close-panel">×</button>
+            <h2 id="panel-title"></h2>
+            <p id="panel-description"></p>
+            <p id="panel-comment"></p>
+            <div id="panel-exif"></div>
         </div>
     </div>
 
